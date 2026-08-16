@@ -59,6 +59,7 @@ Chains read left→right: `✅ missing key → auth fails → test fails`. One m
 
 - Active voice. One idea per sentence. ≤20 words per sentence.
 - One meaning per term; reuse the exact same term for the same thing every time — never synonyms.
+- STE-style vocabulary: prefer the plain word over the formal synonym (do ¬accomplish, stop ¬terminate, use ¬utilize, start ¬initiate, show ¬demonstrate, need ¬require). Technical names (API, cache, mutex…) are exempt.
 - Hard cap: ≤150 words of prose total, excluding code, tables, diagrams.
 
 ## 5. Visual defaults
