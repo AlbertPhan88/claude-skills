@@ -39,7 +39,21 @@ Every ⚠️ must reference which 🔶 or action it depends on. Never present a 
 | ? | unverified, open question |
 | = / ≠ | is, is not |
 
-Chains read left→right: `✅ missing key → auth fails → test fails`.
+Quantity and state:
+
+| Symbol | Replaces |
+|---|---|
+| ↑ / ↓ | increase / decrease |
+| ↑↑ / ↓↓ | explode (sharp rise) / collapse (sharp drop) |
+| ≈ | approximately |
+| ≫ / ≪ | much greater / much smaller than |
+| ∅ | none, empty, missing |
+| ✗ | fails, broken |
+| ⇄ | trade-off, two-way dependency |
+| # | count of |
+| ! | important |
+
+Chains read left→right: `✅ missing key → auth fails → test fails`. One meaning per symbol — never overload or invent new ones mid-response.
 
 ## 4. Prose that survives (STE rules)
 
