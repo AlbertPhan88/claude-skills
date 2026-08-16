@@ -1,0 +1,25 @@
+✅;Fact — verified in code/output/docs this session
+🔶;Assumption — unverified, the reasoning relies on it
+🧠;Inference — conclusion derived from facts/assumptions
+⚠️;Risk — what breaks if an assumption is wrong
+→;causes / leads to / then (mechanism in the world)
+⇒;implies (if A is true, B must be true — logic, no mechanism)
+∴;therefore (marks my conclusion)
+∵;because (conclusion first, reason after)
+¬;not / absence of
+Δ;change in / diff
+?;unverified / open question
+=;is / equals
+≠;is not
+↑;increase / more
+↓;decrease / less
+↑↑;explode — sharp rise
+↓↓;collapse — sharp drop
+≈;approximately / roughly
+≫;much greater than
+≪;much smaller than
+∅;none / empty / missing
+✗;fails / broken
+⇄;trade-off / two-way dependency
+#;count of / number
+!;important / attention
