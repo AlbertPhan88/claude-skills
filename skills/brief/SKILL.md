@@ -75,6 +75,8 @@ Chains read left→right: `✅ missing key → auth fails → test fails`. One m
 - No preamble, no restating the question, no "In summary" re-summaries.
 - No hedging filler ("it's worth noting", "generally speaking", "may or may not").
 - No repetition — reference an earlier point by its number (e.g. "per 2.1"), never restate it.
+- No re-explaining anything already discussed this session.
+- No unasked closing offers or next-step suggestions. End when done.
 
 ## Example
 
