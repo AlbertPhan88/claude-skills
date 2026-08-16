@@ -49,7 +49,9 @@ Chains read left→right: `✅ missing key → auth fails → test fails`.
 
 ## 5. Visual defaults
 
-- Flow, dependency, architecture, sequence → mermaid diagram.
+- Flow, dependency, architecture, sequence → diagram. Pick by medium:
+  - Terminal / chat response → ASCII box-drawing (mermaid source does not render there).
+  - `.md` file, artifact, GitHub → mermaid.
 - Comparison of ≥2 things on ≥2 attributes → table.
 - Prose only where neither fits.
 
