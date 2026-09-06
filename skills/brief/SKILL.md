@@ -69,6 +69,34 @@ Never ADD notation to look dense. A symbol earns its place only if it makes the 
 - Hard cap: ≤150 words of prose total, excluding code, tables, diagrams.
 - Exempt from the cap: detail the user explicitly asked for (a report, a walkthrough, "explain X in full", per-step notes). Requested prose is not debt — give it in full, still in this grammar. The cap governs *unrequested* prose only.
 
+## 4b. Sentence structure
+
+Four rules from reading research. They decide *word order inside* a sentence, where §4 only decides its length.
+
+**a. Old information first, new information last** (Haviland & Clark, given-new contract). The reader attaches new facts to something already in memory. Start each sentence with what the previous sentence established; end with the payload.
+
+- ✗ `A stale cache causes the 401 you are seeing.`
+- ✅ `The 401 comes from a stale cache.`
+
+**b. The last word of the sentence is the emphasized one** (Gopen & Swan, stress position). Put the word you want remembered at the end. Never bury it mid-sentence and trail off with a qualifier.
+
+- ✗ `The token leaks in bot.log, which is 115M, on every request.`
+- ✅ `On every request, bot.log leaks the token.`
+
+**c. Keep related words next to each other** (Gibson, dependency locality). Subject next to its verb; modifier next to what it modifies. Every word between them is memory the reader must hold.
+
+- ✗ `The crawler, after the season 17.1b selector change broke three of the tabs, fails.`
+- ✅ `The crawler fails. The season 17.1b selector change broke three tabs.`
+
+**d. Real actor as subject, real action as verb** (Williams). Kill nominalizations — nouns built from verbs, usually ending -tion, -ment, -ance, -ing.
+
+- ✗ `Verification of the token was performed.`
+- ✅ `I verified the token.`
+- ✗ `There is a requirement for revocation.`
+- ✅ `Revoke the token.`
+
+One sentence carries one point. Split rather than subordinate.
+
 ## 5. Visual defaults
 
 - Flow, dependency, architecture, sequence → diagram. Pick by medium:
