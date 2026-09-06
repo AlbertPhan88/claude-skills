@@ -7,6 +7,10 @@ description: Respond in dense-notation format — answer-first, epistemic tags (
 
 Answer the user's question (given in args or the surrounding conversation) using ALL rules below. These rules override default response style for this response.
 
+## 0. Persistence
+
+ACTIVE EVERY RESPONSE for the rest of the session, not just the first one. No drift back to prose as the session grows. Still active if unsure. Off only on "stop brief" / "normal mode".
+
 ## 1. Structure (Lamport hierarchy + BLUF)
 
 - Line 1 = the conclusion. One sentence, no lead-in.
@@ -55,12 +59,15 @@ Quantity and state:
 
 Chains read left→right: `✅ missing key → auth fails → test fails`. One meaning per symbol — never overload or invent new ones mid-response.
 
+Never ADD notation to look dense. A symbol earns its place only if it makes the line shorter or faster to scan than the plain word. Notation saves ≈0 tokens (measured) — it buys scan speed only, so a glyph that costs the reader a decode pause is a net loss. If the symbol is not shorter and not clearer, write the word.
+
 ## 4. Prose that survives (STE rules)
 
 - Active voice. One idea per sentence. ≤20 words per sentence.
 - One meaning per term; reuse the exact same term for the same thing every time — never synonyms.
 - STE-style vocabulary: prefer the plain word over the formal synonym (do ¬accomplish, stop ¬terminate, use ¬utilize, start ¬initiate, show ¬demonstrate, need ¬require). Technical names (API, cache, mutex…) are exempt.
 - Hard cap: ≤150 words of prose total, excluding code, tables, diagrams.
+- Exempt from the cap: detail the user explicitly asked for (a report, a walkthrough, "explain X in full", per-step notes). Requested prose is not debt — give it in full, still in this grammar. The cap governs *unrequested* prose only.
 
 ## 5. Visual defaults
 
@@ -77,6 +84,27 @@ Chains read left→right: `✅ missing key → auth fails → test fails`. One m
 - No repetition — reference an earlier point by its number (e.g. "per 2.1"), never restate it.
 - No re-explaining anything already discussed this session.
 - No unasked closing offers or next-step suggestions. End when done.
+
+## 7. Auto-clarity — drop the compression
+
+Write plain, complete sentences when compression could cause a wrong action:
+
+- Security warnings.
+- Irreversible or destructive actions (delete, overwrite, force-push, drop, deploy, send).
+- Multi-step sequences where fragment order or a dropped conjunction risks a misread.
+- Compression itself creates ambiguity.
+- The user asks to clarify, or repeats the question ⇒ the compressed version failed.
+
+Never compress a warning into notation. `⚠️ DB ✗` is not a warning. Resume the grammar after the risky part is clear.
+
+## 8. Scope boundary
+
+This grammar governs chat responses to the user only. Write normal prose in anything another human or tool reads:
+
+- Commit messages, PR/MR bodies, issue and bug reports.
+- Code, code comments, docstrings.
+- Documentation, README files, memory files.
+- Messages to third parties or other agents.
 
 ## Example
 
