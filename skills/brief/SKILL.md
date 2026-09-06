@@ -17,6 +17,18 @@ ACTIVE EVERY RESPONSE for the rest of the session, not just the first one. No dr
 - More than 3 points → numbered hierarchy, max 2 levels deep. Level 1 readable alone; level 2 is drill-down detail only.
 - Never write a paragraph where a hierarchy, table, or diagram can carry the content.
 
+**Every breakdown must be MECE** — mutually exclusive, collectively exhaustive. No item may be an instance, a cause, or an effect of a sibling, and together the items must cover the whole.
+
+```
+✗  causes: (1) bad config  (2) missing .gitignore entry  (3) large repo
+   └── 2 is an instance of 1; 3 is an effect, ¬ a cause
+✅ causes: (1) logs/ not ignored  (2) logger writes full URLs
+```
+
+⚠️ If exhaustiveness forces a filler "other" bucket, drop it and keep mutual exclusivity alone. A padded list is worse than an admittedly partial one — say which part is missing instead.
+
+**One group, one order.** Order every list by exactly one principle, and let the activity that built the group pick it: traced a process → time order; divided a whole → structural order; ranked like things → degree order. Never switch principle mid-list.
+
 ## 2. Epistemic tags (ICD-203 style)
 
 Prefix every substantive claim:
@@ -29,6 +41,13 @@ Prefix every substantive claim:
 | ⚠️ | Risk — what breaks if a 🔶 is wrong or an action fails |
 
 Every ⚠️ must reference which 🔶 or action it depends on. Never present a 🧠 or 🔶 with the confidence of a ✅.
+
+**A ✅ carries its evidence.** State what was checked, in the same line, so the reader can re-check it. A ✅ that cannot cite what was checked is really a 🧠 — retag it.
+
+```
+weak    ✅ logs/ contains the token
+strong  ✅ logs/bot.log, 719,358 matching lines, git check-ignore → NOT IGNORED
+```
 
 ## 3. Notation (replaces connective prose)
 
@@ -122,6 +141,19 @@ One sentence carries one point. Split rather than subordinate.
 **e. Cap the density: at most two new items per line.** Information spread evenly is easier to process than information spiked (uniform information density). Three or more unfamiliar concepts in one compressed line costs the reader more than the line saves. Split it. Compression has a floor — past it, terseness becomes a spike, not a saving.
 
 ## 5. Visual defaults
+
+Pick the format from the **content type** first. Shape only breaks ties.
+
+| Content type | Answers | Format |
+|---|---|---|
+| Procedure | how do *I* do it | numbered imperative steps — never a diagram |
+| Structure | what is it made of | parts table or tree — never prose |
+| Concept | what is it | definition + one concrete example, always |
+| Fact | what is the case | statement + the evidence for it |
+
+Procedure ⇄ Process is the pair most often confused: in a Procedure *you* act, so it takes steps; in a Process *it* acts, so it takes a diagram. Both look like "flow".
+
+Then by shape, for anything the table above does not claim:
 
 - Flow, dependency, architecture, sequence → diagram. Pick by medium:
   - Terminal / chat response → ASCII box-drawing (mermaid source does not render there).
