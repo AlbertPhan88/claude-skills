@@ -1,6 +1,6 @@
 ---
 name: brief
-description: Respond in dense-notation format — answer-first, epistemic tags (fact/assumption/inference/risk), logical symbols instead of connective prose, hierarchy and diagrams instead of paragraphs. Use when the user invokes /brief, or asks for a "brief", "dense", "tagged", or "notation" answer.
+description: Respond in dense-notation format — answer-first, epistemic tags (fact/assumption/inference/risk), logical symbols instead of connective prose, hierarchy and diagrams instead of paragraphs. Use when the user invokes /brief, or asks for a "brief", "dense", "tagged", or "notation" answer. Once invoked it stays active for the rest of the session, until "stop brief" or "normal mode".
 ---
 
 # Brief — dense-notation output grammar
@@ -117,60 +117,69 @@ bad    There is a requirement for revocation.
 good   Revoke the token.
 ```
 
-## 6. Simple sentence, linear logic
-
-Clause structure, and the order of the argument.
-
-**a. Keep related words adjacent; never center-embed.** Subject beside its verb, modifier beside what it modifies. Every word in between is memory the reader must hold, and an interruption between a subject and its verb is the worst case — it suspends an unfinished clause. Depth costs nothing when it trails off the right edge. Split rather than subordinate.
+**c. Keep related words adjacent; never center-embed.** Subject beside its verb, modifier beside what it modifies. Every word in between is memory the reader must hold, and an interruption between a subject and its verb is the worst case — it suspends an unfinished clause. Depth costs nothing when it trails off the right edge. Split rather than subordinate.
 
 ```
 bad    The crawler, which broke when the 17.1b selectors changed, fails.
 good   The crawler fails. The 17.1b selectors changed and broke it.
 ```
 
-**b. Never write a garden path.** A sentence that permits a wrong parse early makes the reader backtrack, and the wrong reading often survives the correction. Rewrite any opening that can be misread, even briefly.
+**d. Never write a garden path.** A sentence that permits a wrong parse early makes the reader backtrack, and the wrong reading often survives the correction. Rewrite any opening that can be misread, even briefly. Add the comma, the `that`, or the missing article whenever it removes an ambiguity. Compression never justifies a garden path.
 
 ```
 bad    While the bot logs the token stays in memory.
 good   While the bot logs, the token stays in memory.
 ```
 
-Add the comma, the `that`, or the missing article whenever it removes an ambiguity. Compression never justifies a garden path.
+## 6. Order and density across the answer
 
-**c. Narrate in the order things happen.** Readers assume narrated order matches real order, and they remember the narrated order as the real one. Cause before effect, step before result, event before consequence.
+§5 governs one sentence. These govern how sentences sit together.
+
+**a. Narrate in the order things happen.** Readers assume narrated order matches real order, and they remember the narrated order as the real one. Cause before effect, step before result, event before consequence.
 
 ```
 bad    Revoke the token, which leaked because the logger recorded full URLs.
 good   The logger recorded full URLs → the token leaked → revoke it.
 ```
 
-**d. One direction only.** Never refer forward to something not yet introduced. Define, then use. A reader who must jump ahead has lost the thread.
+**b. One direction only.** Never refer forward to something not yet introduced. Define, then use. A reader who must jump ahead has lost the thread.
 
-**e. At most two *unfamiliar* concepts per line.** Information spread evenly is easier to process than information spiked (uniform information density). A chain of items the reader already knows is not a spike, however long — `missing key → auth fails → test fails` is fine. Three new ideas crammed into one compressed line is a spike, and costs more than the line saves. Split it. Compression has a floor.
+**c. At most two *unfamiliar* concepts per line.** Information spread evenly is easier to process than information spiked (uniform information density). A chain of items the reader already knows is not a spike, however long — `missing key → auth fails → test fails` is fine. Three new ideas crammed into one compressed line is a spike, and costs more than the line saves. Split it. Compression has a floor.
+
+This counts prose and notation lines. Diagram nodes do not count: a diagram indexes by position rather than by reading order, which is exactly why §8 exists, so a five-branch fan-out is not a spike.
 
 ## 7. Format selection
 
-Pick the format from the **content type** first. Shape only breaks ties.
+One selector, read top to bottom. The first row that matches wins.
 
-| Content type | Answers | Format |
+| The content is | Format | Draw it as |
 |---|---|---|
-| Procedure | how do *I* do it | numbered imperative steps — never a diagram |
-| Structure | what is it made of | parts table or tree — never prose |
-| Concept | what is it | definition + one concrete example, always |
+| how do *I* do it | numbered imperative steps | — never a diagram |
+| what is it | definition + one concrete example | — |
+| ≥2 things compared on ≥2 attributes | table | — |
+| what X is made of | diagram | Enclosure (§8.3) |
+| A produces B produces C | diagram | Chain (§8.1) |
+| one input, several outcomes to judge | diagram | Fan-out (§8.2) |
+| if/then, a decision | diagram | Branch (§8.4) |
+| two configurations of one structure | diagram | State pair (§8.5) |
+| none of the above | prose | — |
 
 Facts take a statement plus their evidence; that rule lives in §2.
 
-Procedure ⇄ Process is the pair most often confused: in a Procedure *you* act, so it takes steps; in a Process *it* acts, so it takes a diagram. Both look like "flow".
+Order matters in that table. A composition whose parts each carry two or more attributes matches the comparison row first, so it becomes a table — "what X is made of" claims only pure composition.
 
-Then by shape, for anything the table above does not claim:
+Procedure ⇄ Process is the pair most often confused: in a Procedure *you* act, so it takes steps; in a Process *it* acts, so it takes a Chain. Both look like "flow".
 
-- Flow, dependency, architecture, sequence → diagram, drawn from the §8 catalogue. Pick by medium:
-  - Terminal / chat response → ASCII box-drawing (mermaid source does not render there).
-  - `.md` file, artifact, GitHub → mermaid.
-- Comparison of ≥2 things on ≥2 attributes → table.
-- Prose only where neither fits.
+**The question decides, ¬ the data.** Content often fits two rows. "What is it made of" takes Enclosure even when the parts form a chain; "what happens next" takes Chain even when the steps nest.
+
+Medium picks the renderer, never the form:
+
+- Terminal / chat response → ASCII box-drawing (mermaid source does not render there).
+- `.md` file, artifact, GitHub → mermaid.
 
 ## 8. Diagram catalogue
+
+§7 picks the form. This section holds the shape to copy.
 
 A diagram works by putting everything one inference needs in one place, so the reader searches by looking instead of by matching labels (Larkin & Simon). That only pays off when the relation has a spatial form. Five do.
 
@@ -227,21 +236,7 @@ Mermaid twins, for `.md` files and artifacts — same form, different renderer:
 | Branch | `flowchart TD`, condition as a `{}` node |
 | State pair | two `subgraph` blocks |
 
-Selector:
-
-| Content | Form |
-|---|---|
-| A produces B produces C | Chain |
-| one input, several outcomes to judge | Fan-out |
-| what X is made of | Enclosure |
-| if/then, decision | Branch |
-| two configurations of one structure | State pair |
-| ≥2 things × ≥2 attributes | table (§7) |
-| anything else | prose |
-
-**The question decides, ¬ the data.** Content often fits two forms. "What is it made of" takes Enclosure even when the parts form a chain; "what happens next" takes Chain even when the steps nest.
-
-**Never invent a sixth form.** This is §3's no-new-symbols rule applied to shapes, and it matters more here because ASCII allows infinite variation. If the content fits none of the five, write prose. A catalogue makes diagrams feel mandatory — they are not.
+**Never invent a sixth form.** This is §3's no-new-symbols rule applied to shapes, and it matters more here because ASCII allows infinite variation. If the content matches no row in §7, write prose. A catalogue makes diagrams feel mandatory — they are not.
 
 Relations with ∅ spatial form get a sentence, never a drawing: concession ("although X, still Y"), evidence, restatement, evaluation. Those act on the reader's belief rather than describing structure, so position cannot carry them. Epistemic status travels on the §2 glyphs instead, which is a separate channel and composes with any of the five forms.
 
