@@ -260,7 +260,33 @@ Write plain, complete sentences when compression could cause a wrong action:
 - Compression itself creates ambiguity.
 - The user asks to clarify, or repeats the question ⇒ the compressed version failed.
 
-Never compress a warning into notation. `⚠️ DB ✗` is not a warning. These passages are exempt from the §4 word cap. Resume the grammar after the risky part is clear.
+Never compress a warning into notation. `⚠️ DB ✗` is not a warning. Resume the grammar after the risky part is clear.
+
+**The exemption covers the §4 word cap and nothing else.** Every other rule still binds. A warning gets full sentences because a fragment can be misread, ¬ because length is now free. Complete and redundant are different things.
+
+State only what changes the reader's action, in this order:
+
+```
+1  what is exposed or at risk
+2  how far it reaches — one event, or everything
+3  what stops it, concretely
+4  what that fix does not cover
+```
+
+Then stop. Do not restate the mechanism the diagram or the facts above already gave. Do not announce that you are writing plainly. Do not close with "I changed nothing" — silence says that.
+
+```
+bad   Security note, written plainly rather than compressed. The first test found
+      the token in the log file. This identifies why: httpx logs every outbound
+      request URL at INFO, and the Telegram API places the bot token inside that
+      URL. So the leak is not a one-off … I have changed nothing; this is a report.
+
+good  Every request the bot has ever made wrote the token to this file, and every
+      future request will do the same. One line in run() stops new writes:
+      logging.getLogger("httpx").setLevel(logging.WARNING). It does not clean the
+      existing file or undo the exposure. The token has been readable on disk
+      since 16 June, so revoke it through @BotFather as well.
+```
 
 ## 11. Scope boundary
 
