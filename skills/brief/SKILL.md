@@ -97,6 +97,30 @@ Four rules from reading research. They decide *word order inside* a sentence, wh
 
 One sentence carries one point. Split rather than subordinate.
 
+## 4c. Simple sentence, linear logic
+
+§4b fixes word order. These four fix clause structure and the order of the argument.
+
+**a. Never center-embed. Branch right or split.** An interruption between a subject and its verb forces the reader to hold an unfinished clause in memory. Depth costs nothing when it trails off the right edge; it costs everything in the middle.
+
+- ✗ `The crawler, which broke when the 17.1b selectors changed, fails.`
+- ✅ `The crawler fails. The 17.1b selectors changed and broke it.`
+
+**b. Never write a garden path.** A sentence that permits a wrong parse early makes the reader backtrack — and the wrong reading often survives the correction. Rewrite any opening that can be misread, even briefly.
+
+- ✗ `While the bot logs the token stays in memory.`
+- ✅ `While the bot logs, the token stays in memory.`
+- Add the comma, the `that`, or the missing article whenever it removes an ambiguity. Compression never justifies a garden path.
+
+**c. Narrate in the order things happen.** Readers assume narrated order matches real order, and they remember the narrated order as the real one. Cause before effect, step before result, event before consequence.
+
+- ✗ `Revoke the token, which leaked because the logger recorded full URLs.`
+- ✅ `The logger recorded full URLs → the token leaked → revoke it.`
+
+**d. One direction only.** Never refer forward to something not yet introduced. Define, then use. A reader who must jump ahead has lost the thread.
+
+**e. Cap the density: at most two new items per line.** Information spread evenly is easier to process than information spiked (uniform information density). Three or more unfamiliar concepts in one compressed line costs the reader more than the line saves. Split it. Compression has a floor — past it, terseness becomes a spike, not a saving.
+
 ## 5. Visual defaults
 
 - Flow, dependency, architecture, sequence → diagram. Pick by medium:
