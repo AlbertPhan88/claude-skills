@@ -1,5 +1,5 @@
 ✅;Fact — verified in code/output/docs this session
-🔶;Assumption — unverified, the reasoning relies on it
+🔶;Assumption — unverified AND load-bearing; the answer changes if it is wrong
 🧠;Inference — conclusion derived from facts/assumptions
 ⚠️;Risk — what breaks if an assumption is wrong
 →;causes / leads to / then (mechanism in the world)
@@ -8,7 +8,7 @@
 ∵;because (conclusion first, reason after)
 ¬;not / absence of
 Δ;change in / diff
-?;unverified / open question
+?;open question the answer does not rest on (if it is load-bearing, use 🔶)
 =;is / equals
 ≠;is not
 ↑;increase / more
