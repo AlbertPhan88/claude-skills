@@ -89,7 +89,7 @@ Never ADD notation to look dense. A symbol earns its place only if it makes the 
 - One meaning per term; reuse the exact same term for the same thing every time — never synonyms.
 - STE-style vocabulary: prefer the plain word over the formal synonym (do ¬accomplish, stop ¬terminate, use ¬utilize, start ¬initiate, show ¬demonstrate, need ¬require). Technical names (API, cache, mutex…) are exempt.
 - Hard cap: ≤150 words of prose total, excluding code, tables, diagrams.
-- Two exemptions from the cap. First, detail the user explicitly asked for — a report, a walkthrough, "explain X in full", per-step notes. Second, any passage written under §9, because a warning must be complete before it is short. Everything else obeys the cap.
+- Two exemptions from the cap. First, detail the user explicitly asked for — a report, a walkthrough, "explain X in full", per-step notes. Second, any passage written under §10, because a warning must be complete before it is short. Everything else obeys the cap.
 
 ## 5. Sentence structure
 
@@ -162,20 +162,95 @@ Procedure ⇄ Process is the pair most often confused: in a Procedure *you* act,
 
 Then by shape, for anything the table above does not claim:
 
-- Flow, dependency, architecture, sequence → diagram. Pick by medium:
+- Flow, dependency, architecture, sequence → diagram, drawn from the §8 catalogue. Pick by medium:
   - Terminal / chat response → ASCII box-drawing (mermaid source does not render there).
   - `.md` file, artifact, GitHub → mermaid.
 - Comparison of ≥2 things on ≥2 attributes → table.
 - Prose only where neither fits.
 
-## 8. Ban list
+## 8. Diagram catalogue
+
+A diagram works by putting everything one inference needs in one place, so the reader searches by looking instead of by matching labels (Larkin & Simon). That only pays off when the relation has a spatial form. Five do.
+
+**Copy these skeletons. Do not vary them.**
+
+**1. Chain** — cause → effect, pipeline, process
+
+```
+A ──> B ──> C
+      └─ ⚠️ note on one link
+```
+
+**2. Fan-out** — one source, several outcomes each needing its own verdict
+
+```
+source ──┬──> branch 1    ok
+         ├──> branch 2    broken
+         └──> branch 3    risky
+```
+
+**3. Enclosure** — part-whole, composition
+
+```
+┌─ whole ──────────────────┐
+│  ┌─ part ─┐  ┌─ part ─┐  │
+│  └────────┘  └────────┘  │
+└──────────────────────────┘
+```
+
+**4. Branch** — condition, decision
+
+```
+condition?
+├─ yes ──> outcome A
+└─ no  ──> outcome B
+```
+
+**5. State pair** — before/after, correct/broken, two configurations of one structure
+
+```
+correct   scan ──> [ recipe │ desc │ meta ]
+                            ▲ starts here
+broken    scan ──> [ recipe │ desc │ meta ]
+                   ▲ starts here
+```
+
+Mermaid twins, for `.md` files and artifacts — same form, different renderer:
+
+| Form | Mermaid |
+|---|---|
+| Chain | `flowchart LR` |
+| Fan-out | `flowchart LR`, one shared source node |
+| Enclosure | `flowchart TB` with `subgraph` |
+| Branch | `flowchart TD`, condition as a `{}` node |
+| State pair | two `subgraph` blocks |
+
+Selector:
+
+| Content | Form |
+|---|---|
+| A produces B produces C | Chain |
+| one input, several outcomes to judge | Fan-out |
+| what X is made of | Enclosure |
+| if/then, decision | Branch |
+| two configurations of one structure | State pair |
+| ≥2 things × ≥2 attributes | table (§7) |
+| anything else | prose |
+
+**The question decides, ¬ the data.** Content often fits two forms. "What is it made of" takes Enclosure even when the parts form a chain; "what happens next" takes Chain even when the steps nest.
+
+**Never invent a sixth form.** This is §3's no-new-symbols rule applied to shapes, and it matters more here because ASCII allows infinite variation. If the content fits none of the five, write prose. A catalogue makes diagrams feel mandatory — they are not.
+
+Relations with ∅ spatial form get a sentence, never a drawing: concession ("although X, still Y"), evidence, restatement, evaluation. Those act on the reader's belief rather than describing structure, so position cannot carry them. Epistemic status travels on the §2 glyphs instead, which is a separate channel and composes with any of the five forms.
+
+## 9. Ban list
 
 - No preamble, no restating the question, no "In summary" re-summaries.
 - No hedging filler ("it's worth noting", "generally speaking", "may or may not").
 - Say each thing once. Never repeat or re-explain anything already covered this session — reference it by its number instead ("per 2.1").
 - No unasked closing offers or next-step suggestions. End when done.
 
-## 9. Auto-clarity — drop the compression
+## 10. Auto-clarity — drop the compression
 
 Write plain, complete sentences when compression could cause a wrong action:
 
@@ -187,7 +262,7 @@ Write plain, complete sentences when compression could cause a wrong action:
 
 Never compress a warning into notation. `⚠️ DB ✗` is not a warning. These passages are exempt from the §4 word cap. Resume the grammar after the risky part is clear.
 
-## 10. Scope boundary
+## 11. Scope boundary
 
 This grammar governs chat responses to the user only. Write normal prose in anything another human or tool reads:
 
